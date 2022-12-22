@@ -23,8 +23,11 @@ export function Products() {
 	const containerStyles = css`
 		width: 1200px;
 		height: 600px;
-		margin: auto;
-		div {box-sizing: border-box;}
+		margin: 10px auto;
+		overflow: hidden;
+		border-radius: 10px;
+		border: 1px solid #aaa;
+		div { box-sizing: border-box; }
 	`;
 	return (
 		<div className={containerStyles}>
@@ -46,6 +49,7 @@ export function Products() {
 function modifyTheme(theme: GrafanaTheme2): GrafanaTheme2 {
 	theme.colors.background.secondary = "#5465ff"
 	theme.colors.background.canvas = "#CCCCCC"
+	theme.colors.background.primary = "#CCC";
 	return {...theme};
 }
 
@@ -62,20 +66,20 @@ export function transformPayloadForGrafanaTable(
 			description,
 			price,
 			discountPercentage,
-			rating,
 			stock,
 			brand,
 			category,
+			rating,
 		}) =>
 			frame.appendRow([
 				title,
 				description,
 				price,
 				discountPercentage,
-				rating,
 				stock,
 				brand,
 				category,
+				rating,
 			])
 	);
 	return applyFieldOverrides({
@@ -124,6 +128,26 @@ function generateProductMutableFrame() {
 				values: [],
 			},
 			{
+				name: "Stock",
+				type: FieldType.number,
+				values: [],
+				config: {
+					custom: {
+						width: 100
+					}
+				},
+			},
+			{
+				name: "Brand",
+				type: FieldType.string,
+				values: [],
+			},
+			{
+				name: "Category",
+				type: FieldType.string,
+				values: [],
+			},
+			{
 				name: "Rating",
 				type: FieldType.number,
 				config: {
@@ -148,26 +172,6 @@ function generateProductMutableFrame() {
 						mode: ThresholdsMode.Absolute,
 					},
 				},
-				values: [],
-			},
-			{
-				name: "Stock",
-				type: FieldType.number,
-				values: [],
-				config: {
-					custom: {
-						width: 100
-					}
-				},
-			},
-			{
-				name: "Brand",
-				type: FieldType.string,
-				values: [],
-			},
-			{
-				name: "Category",
-				type: FieldType.string,
 				values: [],
 			},
 		],
